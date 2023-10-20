@@ -1,46 +1,47 @@
-interface Teacher {
+export interface Teacher {
   readonly firstName: string,
   readonly lastName: string,
   fullTimeEmployee: boolean,
-  yearsOfExperience?: Number,
+  yearsOfExperience?: number,
   location: string,
-  [propName: string]: any,
-  }
-
-interface Directors extends Teacher {
-  numberOfReports: Number,
+  [index:string]: any,
 }
 
-interface printTeacherFunction {
-  (firstName: string, lastName: string): string;  
+export interface Director extends Teacher {
+  numberOfReport: number,
 }
 
-const printTeacher: printTeacherFunction = (firstName: string, lastName: string): string => `${firstName.charAt(0)}.${lastName}`;
-interface classInterface {
+export interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
+
+export function printTeacher(firstName: string, lastName: string): string {
+  return `${firstName[0]}. ${lastName}`;
+}
+
+export interface IStudentClassConstructor {
+  new (firstName: string, lastName: string): IStudentClass;
+}
+
+export interface IStudentClass {
   workOnHomework(): string;
   displayName(): string;
 }
 
-class StudentClass implements classInterface{
-  firstName: string;
-  lastName: string;
+export class StudentClass implements IStudentClass {
+  private _firstName!: string;
+  private _lastName!: string;
 
   constructor(firstName: string, lastName: string) {
-    this.firstName;
-    this.lastName;
+    this._firstName = firstName;
+    this._lastName = lastName;
   }
 
-  workOnHomework():string{
-    return "Currently working";
+  workOnHomework() {
+    return 'Currently working';
   }
-  displayName():string{
-    return this.firstName;
-  }
-}
-interface StudentConstructor {
-  (firstName: string, lastName: string): classInterface;
-}
 
-const student = new StudentClass("Djo", "djo");
-console.log(student.displayName())
-console.log(student.workOnHomework())
+  displayName() {
+    return this._firstName;
+  }
+}
